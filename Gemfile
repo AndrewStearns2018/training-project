@@ -46,6 +46,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubycritic', require: false
   gem 'rubocop', require: false
+  gem 'letter_opener'
 end
 
 group :test do
