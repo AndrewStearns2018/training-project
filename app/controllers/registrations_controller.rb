@@ -12,7 +12,6 @@ class RegistrationsController < Devise::RegistrationsController
         render :new
       end
     end
-    # I'm not sure that I need to say that user_params : user_params à voir.
   end
 
   private
