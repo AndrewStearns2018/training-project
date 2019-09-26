@@ -1,3 +1,7 @@
-<h1>Hello y'all</h1>
+<% if current_user %>
+  <h1>Welcome <%= "#{current_user.first_name.capitalize} #{current_user.last_name.capitalize}" %>!</h1>
+<% else %>
+  <h1>Welcome user!</h1>
+<% end %>
 
 
