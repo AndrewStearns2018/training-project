@@ -6,8 +6,7 @@ ActiveAdmin.register User do
   end
 
   member_action :log_in_as, method: :get do
-    user = User.find(params[:id])
-    sign_in user
+    sign_in resource
     redirect_to root_path
   end
 
