@@ -1,6 +1,10 @@
 ActiveAdmin.register Project do
   permit_params :name, :short_description, :long_description, :goal, :category_id, :landscape_image, :thumbnail_image
 
+  action_item :new_reward, only: :show do
+    link_to "New reward", new_admin_project_reward_path(resource)
+  end
+
   index do
     selectable_column
     id_column
@@ -57,7 +61,24 @@ ActiveAdmin.register Project do
          end
       end
      end
+
+     link_to "Add new reward", new_admin_project_reward_path(resource), class: 'action_item'
+
+     if resource.rewards
+       table_for resource.rewards do |reward|
+        column "Name", :name
+        column "Price", :price
+        column "Units left", :units
+        column("") do |reward|
+          span link_to "Edit", edit_admin_project_reward_path(reward.project, reward)
+          span link_to "Delete", admin_project_reward_path(reward.project, reward),
+          method: :delete,
+          data: { confirm: 'Are you sure you want to delete this?' }
+        end
+       end
+     end
      active_admin_comments
+
    end
 
 end
