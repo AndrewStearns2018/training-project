@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
-  include PhotoUploader::Attachment(:image)
+  include PhotoUploader::Attachment(:landscape_image)
+  include PhotoUploader::Attachment(:thumbnail_image)
 
   belongs_to :category
 

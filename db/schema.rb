@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_27_084803) do
+ActiveRecord::Schema.define(version: 2019_09_27_151452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2019_09_27_084803) do
     t.string "short_description"
     t.text "long_description"
     t.integer "goal"
-    t.text "landscape_image"
-    t.text "thumbnail_image"
+    t.text "landscape_image_data"
+    t.text "thumbnail_image_data"
     t.bigint "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -20,3 +20,8 @@ puts "destroyed all categories"
 FactoryBot.create(:category)
 puts "created Category"
 
+Project.destroy_all
+puts "destroyed all projects"
+
+FactoryBot.create(:project)
+puts "created project"
