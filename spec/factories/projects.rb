@@ -6,6 +6,6 @@ FactoryBot.define do
     goal { 1000 }
     # landscape_image { "MyString" }
     # thumbnail_image { "MyString" }
-    association :category, name: "Business"
+    association :category, strategy: :build
   end
 end

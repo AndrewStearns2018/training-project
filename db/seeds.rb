@@ -25,3 +25,16 @@ puts "destroyed all projects"
 
 FactoryBot.create(:project)
 puts "created project"
+
+Reward.destroy_all
+puts "destroyed all rewards"
+
+FactoryBot.create(:reward)
+puts "created award"
+
+Contribution.destroy_all
+puts "destroyed all contributions"
+
+FactoryBot.create(:contribution)
+puts "contribution created"
+
