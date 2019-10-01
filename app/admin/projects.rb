@@ -28,11 +28,24 @@ ActiveAdmin.register Project do
   end
 
   show do
+    total = resource.contributions.sum(:amount)
      attributes_table do
        row :category
        row :short_description
        row :long_description
        row :goal
+       row "Total raised" do |resource|
+        total
+       end
+       row "Largest contribution" do #|resource|
+        resource.contributions.maximum(:amount)
+       end
+       row "Smallest contribution" do |resource|
+        resource.contributions.minimum(:amount)
+       end
+       row "% of goal" do |resource|
+        "#{(total.to_f / resource.goal) * 100 } %"
+       end
        if resource.landscape_image
          row :landscape_image do |ad|
             image_tag ad.landscape_image.url, class: 'landscape'
