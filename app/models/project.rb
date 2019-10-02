@@ -11,6 +11,12 @@ class Project < ApplicationRecord
   validates :name, presence: true
   validates :goal, presence: true, numericality: { only_integer: true }
 
+  scope :draft, -> { where(aasm_state: 'draft') }
+  scope :upcoming, -> { where(aasm_state: 'upcoming') }
+  scope :ongoing, -> { where(aasm_state: 'ongoing') }
+  scope :success, -> { where(aasm_state: 'success') }
+  scope :failure, -> { where(aasm_state: 'failure') }
+
   aasm do
     state :draft, initial: true
     state :upcoming, :ongoing, :success, :failure

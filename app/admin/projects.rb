@@ -5,12 +5,22 @@ ActiveAdmin.register Project do
     link_to "New reward", new_admin_project_reward_path(resource)
   end
 
+  scope :all, default: true
+  scope :draft
+  scope :upcoming
+  scope :ongoing
+  scope :success
+  scope :failure
+
   index do
     selectable_column
     id_column
     column :name
     column :goal
     column :created_at
+    column 'status' do |resource|
+      resource.aasm_state
+    end
     actions
   end
 
