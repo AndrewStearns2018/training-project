@@ -16,6 +16,7 @@ class Project < ApplicationRecord
   scope :ongoing, -> { where(aasm_state: 'ongoing') }
   scope :success, -> { where(aasm_state: 'success') }
   scope :failure, -> { where(aasm_state: 'failure') }
+  scope :user_accessible, -> { where('aasm_state != ? AND aasm_state != ?', 'draft', 'failure') }
 
   aasm do
     state :draft, initial: true
