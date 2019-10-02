@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations:'registrations' }
   root to: 'pages#home'
   get 'dashboard', to: 'pages#dashboard'
-  resources :projects, only: [:index]
+  resources :projects, only: [:index, :show]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
