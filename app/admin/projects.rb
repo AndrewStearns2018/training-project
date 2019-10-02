@@ -31,6 +31,40 @@ ActiveAdmin.register Project do
     f.actions
   end
 
+  controller do
+    def create
+      project = Project.new(permitted_params[:project])
+      CreateProjectTransaction.new.call(project: project) do |m|
+        m.success do |s|
+          redirect_to admin_project_path(s)
+        end
+        m.failure do |f|
+          # If I want the errors to show, I need to get into the AA errors
+          # @errors = f[:error]
+          @project = Project.new(permitted_params[:project])
+          render :new
+        end
+      end
+    end
+
+    def update
+      #raise
+      # I'm really not sure on what to pass in here so that an instance
+      # of Project is passed into my transaction in the same way that Project.new
+      # passed in an instance of project.
+      project = resource.update_attributes(permitted_params[:project])
+      CreateProjectTransaction.new.call(project: project) do |m|
+        m.success do |s|
+          redirect_to admin_project_path(s)
+        end
+        m.failure do |f|
+          @project = resource
+          render :edit
+        end
+      end
+    end
+  end
+
   show do
     total = resource.contributions.sum(:amount)
      attributes_table do
