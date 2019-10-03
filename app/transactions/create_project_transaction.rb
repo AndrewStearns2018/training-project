@@ -5,7 +5,6 @@ class CreateProjectTransaction
 
   tee :params
   tee :upcoming
-  #tee :ongoing
   step :create!
 
   private
@@ -21,17 +20,7 @@ class CreateProjectTransaction
     end
   end
 
-# This logic needs to be in a different transaction.
-# The ONLY way to go from upcoming to ongoing is to call has_reward
-# when the reward is created.
-
-  # def ongoing(_input)
-  #   if @project.may_has_reward?
-  #     @project.has_reward
-  #   end
-  # end
-
-  def create!(input)
+  def create!(_input)
     if @project.save
       Success(@project)
     else

@@ -4,6 +4,10 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
+    if admin_user_signed_in?
+      @project = Project.find(params[:id])
+    else
+      @project = Project.user_accessible.find(params[:id])
+    end
   end
 end
