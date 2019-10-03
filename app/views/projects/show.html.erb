@@ -1,13 +1,17 @@
 
 <%= image_tag @project.landscape_image.url, class: 'landscape-show' %>
 <h2><%= @project.name %> </h2>
+
 <p><%= @project.short_description %></p>
+
 <b>Status:</b> <%= @project.aasm_state %>
 <br>
 <%= link_to "Contribute to this project", "#" %>
 <br>
 
-<b>Category:</b> <%= @project.category.name %>
+<% if @project.category %>
+  <b>Category:</b> <%= @project.category.name %>
+<% end %>
 <br>
 
 <b>Goal:</b> <%= @project.goal %>

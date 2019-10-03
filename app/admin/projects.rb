@@ -5,6 +5,36 @@ ActiveAdmin.register Project do
     link_to "New reward", new_admin_project_reward_path(resource)
   end
 
+  action_item :preview, only: :show do
+    link_to "Preview", project_path(resource), target: :_blank
+  end
+
+  action_item :success, only: :show do
+    if resource.may_trigger_success?
+      link_to "Success", success_admin_project_path
+    end
+  end
+
+  action_item :failure, only: :show do
+    if resource.may_trigger_failure?
+      link_to "Failure", failure_admin_project_path
+    end
+  end
+
+  member_action :success, method: :get do
+    if resource.may_trigger_success?
+      resource.trigger_success!
+      redirect_to admin_project_path(resource)
+    end
+  end
+
+  member_action :failure, method: :get do
+    if resource.may_trigger_failure?
+      resource.trigger_failure!
+      redirect_to admin_project_path(resource)
+    end
+  end
+
   scope :all, default: true
   scope :draft
   scope :upcoming
@@ -49,8 +79,6 @@ ActiveAdmin.register Project do
           redirect_to admin_project_path(s)
         end
         m.failure do |f|
-          # If I want the errors to show, I need to get into the AA errors
-          # @errors = f[:error]
           @project = Project.new(permitted_params[:project])
           render :new
         end
@@ -58,17 +86,12 @@ ActiveAdmin.register Project do
     end
 
     def update
-      #raise
-      # I'm really not sure on what to pass in here so that an instance
-      # of Project is passed into my transaction in the same way that Project.new
-      # passed in an instance of project.
-      project = resource.update_attributes(permitted_params[:project])
-      CreateProjectTransaction.new.call(project: project) do |m|
+    resource.assign_attributes(permitted_params[:project])
+      CreateProjectTransaction.new.call(project: resource) do |m|
         m.success do |s|
           redirect_to admin_project_path(s)
         end
         m.failure do |f|
-          @project = resource
           render :edit
         end
       end
@@ -84,6 +107,9 @@ ActiveAdmin.register Project do
        row :goal
        row "Total raised" do |resource|
         total
+       end
+       row "Status" do |resource|
+        resource.aasm_state
        end
        row "Largest contribution" do #|resource|
         resource.contributions.maximum(:amount)
