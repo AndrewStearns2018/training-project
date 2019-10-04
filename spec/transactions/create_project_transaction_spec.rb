@@ -2,7 +2,6 @@ require 'rails_helper'
 RSpec.describe CreateProjectTransaction do
   context 'CreateProjectTransaction creates project and updates state' do
     let(:project) { build(:project) }
-    let (:reward) { build(:reward) }
     subject { CreateProjectTransaction.new.call(project: project) }
 
     it 'should create project' do

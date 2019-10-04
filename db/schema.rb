@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_120949) do
+ActiveRecord::Schema.define(version: 2019_10_04_082845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2019_10_01_120949) do
     t.bigint "user_id", null: false
     t.integer "amount"
     t.bigint "project_id", null: false
-    t.bigint "reward_id", null: false
+    t.bigint "reward_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_contributions_on_project_id"

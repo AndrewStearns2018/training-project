@@ -4,9 +4,17 @@
 
 <p><%= @project.short_description %></p>
 
+<b>Rewards:</b>
+
+<% @project.rewards.each do |reward| %>
+  <%= "#{reward.name} - units: #{reward.units} - price: #{reward.price}" %>
+<% end %>
+
+<br>
+
 <b>Status:</b> <%= @project.aasm_state %>
 <br>
-<%= link_to "Contribute to this project", "#" %>
+<%= link_to "Contribute to this project", new_project_contribution_path(@project) %>
 <br>
 
 <% if @project.category %>
