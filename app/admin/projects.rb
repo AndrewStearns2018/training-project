@@ -136,9 +136,9 @@ ActiveAdmin.register Project do
 
      if resource.rewards
        table_for resource.rewards do |reward|
-        column "Name", :name
-        column "Price", :price
-        column "Units left", :units
+        column :name
+        column :price
+        column :units
         column("") do |reward|
           span link_to "Edit", edit_admin_project_reward_path(reward.project, reward)
           span link_to "Delete", admin_project_reward_path(reward.project, reward),
