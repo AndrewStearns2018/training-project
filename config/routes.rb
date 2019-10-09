@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get 'dashboard', to: 'pages#dashboard'
   resources :projects, only: [:index, :show] do
-    resources :contributions, only: [:new, :create]
+    resources :contributions, only: [:new, :create] do
+      member do
+        get :verify_payment
+      end
+    end
   end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

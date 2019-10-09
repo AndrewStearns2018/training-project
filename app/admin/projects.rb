@@ -1,5 +1,5 @@
 ActiveAdmin.register Project do
-  permit_params :name, :short_description, :long_description, :goal, :category_id, :landscape_image, :thumbnail_image
+  permit_params :name, :short_description, :long_description, :goal, :category_id, :user_id, :landscape_image, :thumbnail_image
 
   action_item :new_reward, only: :show do
     link_to "New reward", new_admin_project_reward_path(resource)
@@ -62,6 +62,7 @@ ActiveAdmin.register Project do
     f.inputs do
       f.input :name
       f.input :category
+      f.input :user, member_label: Proc.new { |c| "#{c.first_name} #{c.last_name}" }
       f.input :short_description
       f.input :long_description
       f.input :goal

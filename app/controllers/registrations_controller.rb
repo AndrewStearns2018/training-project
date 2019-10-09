@@ -1,9 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def create
-    CreateUserTransaction.new.call(user_params: user_params) do |m|
+    user = User.new(user_params)
+    CreateUserTransaction.new.call(user: user) do |m|
       m.success do |s|
-        sign_in s[:user]
+        sign_in s
         redirect_to root_path
       end
       m.failure do |f|
@@ -22,6 +23,8 @@ class RegistrationsController < Devise::RegistrationsController
       :first_name,
       :last_name,
       :date_of_birth,
+      :country_of_residence,
+      :nationality,
       :password,
       :password_confirmation
       )

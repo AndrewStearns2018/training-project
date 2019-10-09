@@ -1,0 +1,198 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/oauth/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Basic dHJhaW5pbmdfcHJvamVjdDp4eG5nVlJadlEwVjJzdXh1eHVvall5WUdFb3RUY0dHc3Q2dUJzTDJMZGN3RlFucTY3Ng==
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 09 Oct 2019 08:18:30 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d256f8271382df5c9b23e649ae5484a321570609110; expires=Thu, 08-Oct-20
+        08:18:30 GMT; path=/; domain=.mangopay.com; HttpOnly
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - "-1"
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 522eec9c8fc668b2-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"3c71e0ad065d4b50b6638a64238b4bc7","token_type":"bearer","expires_in":1199}'
+    http_version: 
+  recorded_at: Wed, 09 Oct 2019 08:18:30 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/training_project/users/natural
+    body:
+      encoding: UTF-8
+      string: '{"FirstName":"Henri","LastName":"de Test","Birthday":969832800,"Nationality":"FR","CountryOfResidence":"FR","Email":"henri@example.com"}'
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.33
+      Authorization:
+      - bearer 3c71e0ad065d4b50b6638a64238b4bc7
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.33","lang":"ruby","lang_version":"2.6.3 p62 (2019-04-16)","platform":"x86_64-darwin18","uname":"Darwin
+        MacBook-Air-de-Andrew.local 18.7.0 Darwin Kernel Version 18.7.0: Tue Aug 20
+        16:57:14 PDT 2019; root:xnu-4903.271.2~2/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 09 Oct 2019 08:18:30 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d339470cd2cfa034808d96d1d9082ca701570609110; expires=Thu, 08-Oct-20
+        08:18:30 GMT; path=/; domain=.mangopay.com; HttpOnly
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - "-1"
+      X-Ratelimit:
+      - '1'
+      - '167'
+      - '19'
+      - '31'
+      X-Ratelimit-Remaining:
+      - '105433'
+      - '2299'
+      - '4481'
+      - '8769'
+      X-Ratelimit-Reset:
+      - '1570609980'
+      - '1570610880'
+      - '1570612680'
+      - '1570695420'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 522eec9d8f8ecdd7-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"Address":{"AddressLine1":null,"AddressLine2":null,"City":null,"Region":null,"PostalCode":null,"Country":null},"FirstName":"Henri","LastName":"de
+        Test","Birthday":969832800,"Nationality":"FR","CountryOfResidence":"FR","Occupation":null,"IncomeRange":null,"ProofOfIdentity":null,"ProofOfAddress":null,"Capacity":"NORMAL","PersonType":"NATURAL","Email":"henri@example.com","KYCLevel":"LIGHT","Id":"69731392","Tag":null,"CreationDate":1570609110}'
+    http_version: 
+  recorded_at: Wed, 09 Oct 2019 08:18:30 GMT
+- request:
+    method: post
+    uri: https://api.sandbox.mangopay.com/v2.01/training_project/wallets
+    body:
+      encoding: UTF-8
+      string: '{"Owners":["69731392"],"Description":"de Test","Currency":"EUR"}'
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.33
+      Authorization:
+      - bearer 3c71e0ad065d4b50b6638a64238b4bc7
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.33","lang":"ruby","lang_version":"2.6.3 p62 (2019-04-16)","platform":"x86_64-darwin18","uname":"Darwin
+        MacBook-Air-de-Andrew.local 18.7.0 Darwin Kernel Version 18.7.0: Tue Aug 20
+        16:57:14 PDT 2019; root:xnu-4903.271.2~2/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 09 Oct 2019 08:18:30 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d980573356cc1989561fbc2e2c421ba371570609110; expires=Thu, 08-Oct-20
+        08:18:30 GMT; path=/; domain=.mangopay.com; HttpOnly
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - "-1"
+      X-Ratelimit:
+      - '168'
+      - '2'
+      - '20'
+      - '32'
+      X-Ratelimit-Remaining:
+      - '105432'
+      - '2298'
+      - '4480'
+      - '8768'
+      X-Ratelimit-Reset:
+      - '1570609980'
+      - '1570610880'
+      - '1570612680'
+      - '1570695420'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 522eec9e8957cd9b-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"Description":"de Test","Owners":["69731392"],"Balance":{"Currency":"EUR","Amount":0},"Currency":"EUR","FundsType":"DEFAULT","Id":"69731393","Tag":null,"CreationDate":1570609110}'
+    http_version: 
+  recorded_at: Wed, 09 Oct 2019 08:18:30 GMT
+recorded_with: VCR 5.0.0

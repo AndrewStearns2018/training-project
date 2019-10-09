@@ -1,25 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe CreateUserTransaction do
-  context 'CreateUserTransaction creates User and sends email.' do
-    let(:user) { attributes_for(:user) }
-    it 'should create a valid user and send email' do
-      expect(CreateUserTransaction.new.call(user_params: user)).to be_success
-    end
+  describe 'Mango user creation' do
+    context 'CreateUserTransaction creates User and sends email.' do
+      let(:user) { build(:user) }
 
-    it 'should not create a user without first_name.' do
-      user[:first_name] = nil
-      expect(CreateUserTransaction.new.call(user_params: user)).to be_failure
-    end
+      context 'success' do
+      subject { CreateUserTransaction.new.call(user: user) }
 
-    it 'should not create a user without last_name' do
-      user[:last_name] = nil
-      expect(CreateUserTransaction.new.call(user_params: user)).to be_failure
-    end
+        before do
+          VCR.insert_cassette('transactions/create_user_transaction')
+        end
 
-    it 'should not create a user without date_of_birth' do
-      user[:date_of_birth] = nil
-      expect(CreateUserTransaction.new.call(user_params: user)).to be_failure
+        it 'should create a new mango user' do
+          expect(subject.success.mango_user_id).to_not be(nil)
+        end
+
+        it 'should create user wallet' do
+          expect(subject.success.mango_wallet_id).to_not be(nil)
+        end
+
+        it 'should return success' do
+          expect(subject.success).to be_an_instance_of(User)
+        end
+
+        it 'should send a welcome email' do
+          expect { subject }.to change { ActionMailer::Base.deliveries.count }
+        end
+
+        after do
+          VCR.eject_cassette('transactions/create_user_transaction')
+        end
+      end
     end
   end
 end

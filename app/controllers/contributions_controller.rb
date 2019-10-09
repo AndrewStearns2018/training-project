@@ -17,8 +17,7 @@ class ContributionsController < ApplicationController
     end
     CreateContributionTransaction.new.call(contribution: contribution) do |m|
       m.success do |s|
-        # TODO: payment path
-        redirect_to project_path(s.project)
+        redirect_to s["RedirectURL"]
       end
       m.failure do |f|
         @contribution = Contribution.new
@@ -28,7 +27,22 @@ class ContributionsController < ApplicationController
     end
   end
 
+  def verify_payment
+    contribution = Contribution.find(params[:id])
+    VerifyPaymentTransaction.new.call(contribution: contribution) do |m|
+      m.success do |s|
+        redirect_to project_path(s.project)
+      end
+      m.failure do |f|
+        @contribution = Contribution.new
+        @project = Project.find(f.project.id)
+        render :new
+      end
+    end
+  end
+
   private
+
   def contribution_params
     params.require(:contribution).permit(:amount)
   end

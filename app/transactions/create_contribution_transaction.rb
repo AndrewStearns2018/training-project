@@ -6,8 +6,7 @@ class CreateContributionTransaction
   tee :params
   step :reward_valid
   step :create_contribution
-  tee :update_reward
-
+  step :create_card_web_payin
 
   private
 
@@ -16,11 +15,10 @@ class CreateContributionTransaction
   end
 
   def reward_valid(_input)
-    # If there is a reward do => else send success
     if @contribution.reward.nil?
       Success(@contribution)
     else
-      @reward = Reward.find(@contribution[:reward_id])
+      @reward = @contribution.reward
       if @reward.units - (@contribution[:amount].to_i / @reward.price) > 0
         if @reward.price <= @contribution[:amount].to_i
           Success(@contribution)
@@ -41,10 +39,32 @@ class CreateContributionTransaction
     end
   end
 
-  def update_reward(_input)
-    if @reward
-      @reward.units -= @contribution[:amount].to_i / @reward.price.to_i
-      @reward.save
+  def create_card_web_payin(input)
+    @card_pay_in = MangoPay::PayIn::Card::Web.create(payin_params)
+    if MangoPay::PayIn.fetch(@card_pay_in["Id"])
+      @contribution.update(pay_in_id: @card_pay_in["Id"])
+      Success(@card_pay_in)
+    else
+      Failure(input)
     end
+  end
+
+  def payin_params
+    {
+    "AuthorId": @contribution.user.mango_user_id,
+    "CreditedUserId": @contribution.project.user.mango_user_id,
+    "DebitedFunds": {
+    "Currency": "EUR",
+    "Amount": @contribution.amount * 100
+    },
+    "Fees": {
+    "Currency": "EUR",
+    "Amount": 0
+    },
+    "ReturnURL": "http://localhost:3000/projects/#{@contribution.project.id}/contributions/#{@contribution.id}/verify_payment",
+    "CardType": "CB_VISA_MASTERCARD",
+    "CreditedWalletId": @contribution.project.user.mango_wallet_id,
+    "Culture": "EN"
+    }
   end
 end

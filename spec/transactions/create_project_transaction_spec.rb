@@ -2,7 +2,12 @@ require 'rails_helper'
 RSpec.describe CreateProjectTransaction do
   context 'CreateProjectTransaction creates project and updates state' do
     let(:project) { build(:project) }
+    let(:user) { build(:user) }
     subject { CreateProjectTransaction.new.call(project: project) }
+
+    before do
+      project.user = user
+    end
 
     it 'should create project' do
       expect(subject.success).to be_an_instance_of(Project)

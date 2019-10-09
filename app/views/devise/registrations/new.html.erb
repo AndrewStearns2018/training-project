@@ -25,6 +25,16 @@
   </div>
 
   <div class="field">
+    <%= f.label :country_of_residence %><br />
+    <%= f.country_select :country_of_residence, except: ["AF", "BS", "BA", "BW", "KH", "KP", "ET", "GH", "GY", "IR", "IQ", "LA", "UG", "PK", "RS", "LK", "SY", "TT", "TN", "VU", "YE"], class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :nationality %><br />
+    <%= f.country_select :nationality %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>

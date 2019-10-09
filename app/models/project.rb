@@ -5,6 +5,7 @@ class Project < ApplicationRecord
   include AASM
 
   belongs_to :category
+  belongs_to :user
   has_many :rewards, dependent: :destroy
   has_many :contributions, dependent: :destroy
 

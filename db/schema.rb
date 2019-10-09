@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_04_082845) do
+ActiveRecord::Schema.define(version: 2019_10_07_163128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 2019_10_04_082845) do
     t.bigint "reward_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "aasm_state"
+    t.string "pay_in_id"
     t.index ["project_id"], name: "index_contributions_on_project_id"
     t.index ["reward_id"], name: "index_contributions_on_reward_id"
     t.index ["user_id"], name: "index_contributions_on_user_id"
@@ -75,7 +77,9 @@ ActiveRecord::Schema.define(version: 2019_10_04_082845) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "aasm_state"
+    t.bigint "user_id"
     t.index ["category_id"], name: "index_projects_on_category_id"
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "rewards", force: :cascade do |t|
@@ -105,6 +109,10 @@ ActiveRecord::Schema.define(version: 2019_10_04_082845) do
     t.string "first_name"
     t.string "last_name"
     t.date "date_of_birth"
+    t.string "nationality"
+    t.string "country_of_residence"
+    t.string "mango_user_id"
+    t.string "mango_wallet_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
