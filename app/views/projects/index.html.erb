@@ -1,11 +1,31 @@
 <h1>Available projects</h1>
 
-<div>
-  <ul>
+<%= search_form_for @q do |f| %>
+  <div class="search-bar">
+    <%= f.search_field :name_or_short_description_or_long_description_or_category_name_cont,
+    class: "form-control" %>
+    <%= f.submit "Hello", class: "btn btn-primary search-button" %>
+  </div>
+<% end %>
+
+<br>
+
+<div class="container">
+  <div class="row">
     <% @projects.each do |project| %>
-    <li>
-      <%= link_to "#{project.name}", project_path(project) %> - <%= project.contributions.success.sum(:amount).to_f / project.goal * 100 %> %
-    </li>
+    <div class="col-xs-12 col-sm-6">
+      <div class="card-trip">
+        <%= link_to "", project_path(project), class: "card-link" %>
+        <%= image_tag project.landscape_image.url %>
+        <div class="card-trip-infos">
+          <div>
+            <h2><%= project.name %> - (<%= project.aasm_state %>)</h2>
+            <p><%= project.short_description %>  <%= project.contributions.success.sum(:amount).to_f / project.goal * 100 %> % </p>
+          </div>
+          <h2 class="card-trip-pricing"><%= project.category.name %></h2>
+        </div>
+      </div>
+    </div>
     <% end %>
-  </ul>
+  </div>
 </div>

@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.user_accessible
+    @q = Project.ransack(params[:q])
+    @projects = @q.result.user_accessible.includes(:category)
   end
 
   def show
