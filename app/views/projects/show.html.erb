@@ -1,31 +1,35 @@
+<div class="presentation">
 
-<%= image_tag @project.landscape_image.url, class: 'landscape-show' %>
-<h2><%= @project.name %> </h2>
+  <%= image_tag @project.landscape_image.url, class: 'landscape-show' %>
 
-<p><%= @project.short_description %></p>
+  <div class="stats">
+    <h2><%= @project.name %> </h2>
+    <%= @project.short_description %>
+    <br>
+    <b>Status:</b> <%= @project.aasm_state %>
+    <br>
+    <% if @project.category %>
+      <b>Category:</b> <%= @project.category.name %>
+    <% end %>
+    <br>
+    <b>Goal:</b> <%= @project.goal %>
+    <br>
+    <b>Progress</b> <%= (@project.contributions.success.sum(:amount).to_f / @project.goal * 100).round %>%
+    <br>
+    <%= link_to "Contribute to this project", new_project_contribution_path(@project), class: "btn btn-primary" %>
+  </div>
+</div>
 
-<b>Rewards:</b>
-
-<% @project.rewards.each do |reward| %>
-  <%= "#{reward.name} - units: #{reward.units} - price: #{reward.price}" %>
-<% end %>
-
-<br>
-
-<b>Status:</b> <%= @project.aasm_state %>
-<br>
-<%= link_to "Contribute to this project", new_project_contribution_path(@project) %>
-<br>
-
-<% if @project.category %>
-  <b>Category:</b> <%= @project.category.name %>
-<% end %>
-<br>
-
-<b>Goal:</b> <%= @project.goal %>
-<br>
-
-<b>Progress</b> <%= (@project.contributions.success.sum(:amount).to_f / @project.goal * 100).round %>%
-<br>
-
-<b>Description:</b> <%= @project.long_description %>
+<div class="bottom-of-page">
+  <div>
+    <b>Description:</b>
+    <br>
+    <p><%= @project.long_description %></p>
+  </div>
+  <div>
+    <b>Rewards:</b>
+    <% @project.rewards.each do |reward| %>
+      <p><%= "#{reward.name} - units: #{reward.units} - price: #{reward.price}" %> €</p>
+    <% end %>
+  </div>
+</div>

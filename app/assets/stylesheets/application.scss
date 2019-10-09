@@ -1,5 +1,10 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
-@import "projects";
-@import "projects_index";
 
+// import pages
+
+@import "pages/index";
+
+// import components
+
+@import "components/index";
