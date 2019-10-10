@@ -5,5 +5,8 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+    @user = current_user
+    @contributions = @user.contributions.success
+    @total_projects = @user.contributions.success.select(:project_id).distinct.count
   end
 end

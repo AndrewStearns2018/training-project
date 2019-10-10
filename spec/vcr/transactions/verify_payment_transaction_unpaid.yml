@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.sandbox.mangopay.com/v2.01/training_project/payins/69660022
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      User-Agent:
+      - MANGOPAY V2 RubyBindings/3.0.33
+      Authorization:
+      - bearer 4f65344353f640b38d447423adf9751e
+      Content-Type:
+      - application/json
+      X-Mangopay-Client-User-Agent:
+      - '{"bindings_version":"3.0.33","lang":"ruby","lang_version":"2.6.3 p62 (2019-04-16)","platform":"x86_64-darwin18","uname":"Darwin
+        MacBook-Air-de-Andrew.local 18.7.0 Darwin Kernel Version 18.7.0: Tue Aug 20
+        16:57:14 PDT 2019; root:xnu-4903.271.2~2/RELEASE_X86_64 x86_64"}'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 10 Oct 2019 09:58:23 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d18c7613db73309f6623317cface213e91570701503; expires=Fri, 09-Oct-20
+        09:58:23 GMT; path=/; domain=.mangopay.com; HttpOnly
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - "-1"
+      X-Ratelimit:
+      - '165'
+      - '62'
+      - '62'
+      - '64'
+      X-Ratelimit-Remaining:
+      - '105435'
+      - '2238'
+      - '4438'
+      - '8736'
+      X-Ratelimit-Reset:
+      - '1570702380'
+      - '1570703280'
+      - '1570705080'
+      - '1570787820'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 5237bc4c1e38bd54-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"Id":"69660022","Tag":null,"CreationDate":1570523588,"AuthorId":"69621545","CreditedUserId":"69621234","DebitedFunds":{"Currency":"EUR","Amount":10000},"CreditedFunds":{"Currency":"EUR","Amount":10000},"Fees":{"Currency":"EUR","Amount":0},"Status":"FAILED","ResultCode":"101002","ResultMessage":"The
+        transaction has been cancelled by the user","ExecutionDate":null,"Type":"PAYIN","Nature":"REGULAR","CreditedWalletId":"69621235","DebitedWalletId":null,"PaymentType":"CARD","ExecutionType":"WEB","RedirectURL":"https://homologation-secure-p.payline.com/webpayment/step2.do?reqCode=prepareStep2&token=1cedbOIrzUYFRYsfk3801570523588860","ReturnURL":"http://localhost:3000/projects/40/contributions/64/verify_payment?transactionId=69660022","TemplateURL":"https://api.sandbox.mangopay.com/Content/PaylineTemplate?rp=c713ddf6f7bb4875a2c85e04873dffd3&transactionId=69660022","CardType":"CB_VISA_MASTERCARD","Culture":"EN","SecureMode":"DEFAULT","StatementDescriptor":null}'
+    http_version: 
+  recorded_at: Thu, 10 Oct 2019 09:58:23 GMT
+recorded_with: VCR 5.0.0

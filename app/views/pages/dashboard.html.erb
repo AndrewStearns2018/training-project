@@ -1,3 +1,34 @@
-<h1>Welcome to your dashboard</h1>
+<div class="container">
+  <h1>Welcome <%= @user.first_name %> to your dashboard</h1>
 
-<%= link_to "Edit profile", "#" %>
+
+  <b>Total contributions:</b>
+  <br>
+  <%= @contributions.sum(:amount) %> €
+  <br>
+
+  <b>Total number of projects you have contributed to:</b>
+  <br>
+  <%= @total_projects %>
+  <br>
+
+  <b>List of contributions you have made:</b>
+  <% @contributions.each do |contribution| %>
+    <ul>
+      <li>
+        <%= link_to "#{Project.find(contribution.project_id).name}", project_path(contribution.project_id) %>
+        -
+        <%= contribution.amount %> €
+        <%= contribution.created_at.strftime("%b %-d %Y") %>
+        <% if contribution.reward %>
+          <b>reward:</b>
+          <%= contribution.reward.name %> |
+          <b>quantity:</b>
+          <%= contribution.amount / contribution.reward.price.to_i %>
+        <% end %>
+      </li>
+    </ul>
+  <% end %>
+
+  <%= link_to "Edit profile", edit_user_registration_path, class: "btn btn-primary" %>
+</div>
