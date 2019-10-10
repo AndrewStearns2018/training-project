@@ -1,4 +1,3 @@
-# TO DO: create tests for the create user transaction.
 require 'rails_helper'
 
 RSpec.describe CreateUserTransaction do

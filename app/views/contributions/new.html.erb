@@ -1,0 +1,11 @@
+<h1>Contributions#new</h1>
+<p>Find me in app/views/contributions/new.html.erb</p>
+<%= simple_form_for [@project, @contribution] do |f| %>
+
+  <%= f.input :amount, input_html: { class: "form-control" } %>
+
+  <%= f.input :reward,:collection => @project.rewards,:label_method => lambda {
+    |reward| "#{reward.name} - #{reward.price} €" },:value_method => :id,:label => "Reward" ,:include_blank => true %>
+  <%= f.submit "Submit", class: "btn btn-primary form-control" %>
+<% end %>
+

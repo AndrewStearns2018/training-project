@@ -8,20 +8,19 @@
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-User.destroy_all
-puts "destroyed all users"
-
 FactoryBot.create(:user)
 puts "created User"
 
-Category.destroy_all
-puts "destroyed all categories"
 
 FactoryBot.create(:category)
 puts "created Category"
 
-Project.destroy_all
-puts "destroyed all projects"
-
 FactoryBot.create(:project)
 puts "created project"
+
+FactoryBot.create(:reward)
+puts "created award"
+
+FactoryBot.create(:contribution)
+puts "contribution created"
+
