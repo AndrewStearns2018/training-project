@@ -21,6 +21,10 @@ ActiveAdmin.register Project do
     end
   end
 
+  action_item :contributions_csv, only: :show do
+    link_to "Download contributions", contributions_csv_admin_project_path, format: :csv, target: :_blank
+  end
+
   member_action :success, method: :get do
     if resource.may_trigger_success?
       resource.trigger_success!
@@ -33,6 +37,17 @@ ActiveAdmin.register Project do
       resource.trigger_failure!
       redirect_to admin_project_path(resource)
     end
+  end
+
+  member_action :contributions_csv, method: :get do
+    csv_file = CSV.generate(headers: true) do |csv|
+      attributes = %w{id first_name last_name nationality country_of_residence date_of_birth last_sign_in_at}
+      csv << attributes
+      resource.contributions.each do |contribution|
+        csv << attributes.map{ |attr| contribution.user.send(attr) }
+      end
+    end
+    send_data csv_file
   end
 
   scope :all, default: true
