@@ -15,19 +15,19 @@ class CreateContributionTransaction
   end
 
   def reward_valid(_input)
-    if @contribution.reward.nil?
-      Success(@contribution)
-    else
+    if @contribution.reward
       @reward = @contribution.reward
       if @reward.units - (@contribution[:amount].to_i / @reward.price) > 0
         if @reward.price <= @contribution[:amount].to_i
           Success(@contribution)
         else
-          Failure(error: "Your contribution is not enough for this reward.")
+          Failure(@contribution.errors.add(:amount, "- your contribution is not enough for this reward."))
         end
       else
-        Failure(error: "There are not enough units left.")
+        Failure(@contribution.errors.add(:amount, "- there are not enough units left."))
       end
+    else
+      Success(@contribution)
     end
   end
 
@@ -35,7 +35,7 @@ class CreateContributionTransaction
     if @contribution.save
       Success(@contribution)
     else
-      Failure(error: @contribution.errors.full_messages)
+      Failure(@contribution.errors.full_messages)
     end
   end
 
@@ -45,7 +45,7 @@ class CreateContributionTransaction
       @contribution.update(pay_in_id: @card_pay_in["Id"])
       Success(@card_pay_in)
     else
-      Failure(input)
+      Failure(@contribution)
     end
   end
 

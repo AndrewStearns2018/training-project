@@ -9,19 +9,13 @@ class ContributionsController < ApplicationController
   end
 
   def create
-    contribution = Contribution.new(contribution_params)
-    contribution.user = current_user
-    contribution.project = Project.find(params[:project_id])
-    unless params[:contribution][:reward].empty?
-      contribution.reward = Reward.find(params[:contribution][:reward])
-    end
-    CreateContributionTransaction.new.call(contribution: contribution) do |m|
+    @contribution = Contribution.new(contribution_params)
+    @project = Project.find(params[:project_id])
+    CreateContributionTransaction.new.call(contribution: @contribution) do |m|
       m.success do |s|
         redirect_to s["RedirectURL"]
       end
       m.failure do |f|
-        @contribution = Contribution.new
-        @project = Project.find(params[:project_id])
         render :new
       end
     end
@@ -44,6 +38,6 @@ class ContributionsController < ApplicationController
   private
 
   def contribution_params
-    params.require(:contribution).permit(:amount)
+    params.require(:contribution).permit(:amount, :reward_id, :project_id, :user_id)
   end
 end
