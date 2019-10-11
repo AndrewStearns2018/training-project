@@ -27,13 +27,15 @@ RSpec.describe CreateContributionTransaction do
       contribution.reward = nil
       expect(subject).to be_success
     end
-
-    it 'should not let you buy more units than exist' do
-      amount = reward.price * reward.units + 1
-      contribution.amount = amount
-      expect(subject).to be_failure
+    context 'Refuse contribution is there are not enough reward units' do
+      before do
+        amount = reward.price * reward.units + 1
+        contribution.amount = amount
+      end
+      it 'should not let you buy more units than exist' do
+        expect(subject).to be_failure
+      end
     end
-
     after do
       VCR.eject_cassette('transactions/create_contribution_transaction')
     end

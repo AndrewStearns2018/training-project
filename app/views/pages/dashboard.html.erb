@@ -16,7 +16,7 @@
   <% @contributions.each do |contribution| %>
     <ul>
       <li>
-        <%= link_to "#{Project.find(contribution.project_id).name}", project_path(contribution.project_id) %>
+        <%= link_to contribution.project.name, project_path(contribution.project) %>
         -
         <%= contribution.amount %> €
         <%= contribution.created_at.strftime("%b %-d %Y") %>
