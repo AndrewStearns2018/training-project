@@ -33,7 +33,7 @@ gem 'figaro'
 gem 'devise'
 gem 'dry-transaction'
 gem 'activeadmin'
-gem 'shrine', '~> 2.0'
+gem 'shrine', '~> 3.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
